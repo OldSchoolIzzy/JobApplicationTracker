@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Application{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form class="row g-3" method="post">
+    <div class="col-md-6">
+      <label for="companyName" class="form-label">Company Name</label>
+      <input maxlength="20" class="form-control" name="companyName" id="companyName" value="{{ request.form['companyName'] }}" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="jobTitle" class="form-label">Job Title</label>
+      <input maxlength="40" class="form-control" name="jobTitle" id="jobTitle" value="{{ request.form['jobTitle'] }}" required>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label" for="status"> Status </label>
+      <select class="form-select" id="status" name="status">
+        {% for s in status %}
+          <option value="{{ s.status }}">{{ s.status }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label" for="interestLevel">Interest Level</label>
+      <select class="form-select" id="interestLevel" name="interestLevel">
+        {% for o in data %}
+          <option value="{{ o.name }}">{{ o.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="salary" class="form-label">Salary</label>
+      <input min="0" max="1000000" class="form-control" type="number" name="salary" id="salary" value="{{ request.form['salary'] }}" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="stage" class="form-label">Stage</label>
+      <input maxlength="20" class="form-control" name="stage" id="stage" value="{{ request.form['stage'] }}" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="website" class="form-label">Website</label>
+      <input class="form-control" type="url" name="website" id="website" value="{{ request.form['website'] }}" required>
+    </div>
+
+    <div class="col-md-6">
+      <label for="note" class="form-label">Note</label>
+      <textarea maxlength="240" name="note" id="note" class="form-control">{{ request.form['note'] }}</textarea>
+    </div>
+
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit"> Save </button>
+    </div>
+
+  </form>
+{% endblock %}
