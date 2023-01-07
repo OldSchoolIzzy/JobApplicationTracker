@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 
 
@@ -22,10 +22,13 @@ def index():
 @login_required
 def application():
     db = get_db()
+    user_id = session.get('user_id')
+
     applications = db.execute(
-        'SELECT *'
-        ' FROM application a JOIN user u ON a.author_id = u.id'
-        ' ORDER BY date_applied DESC'
+        ' SELECT * '
+        ' FROM application '
+        ' where author_id = ? '
+        ' ORDER BY date_applied DESC ', (user_id,)
     ).fetchall()
     return render_template('application/index.html', applications=applications)
 
